@@ -1,0 +1,4 @@
+---
+- name: plan to restart pgcron
+  set_fact:
+    __pgcron_restart: true
