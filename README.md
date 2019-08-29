@@ -1,5 +1,7 @@
 # ansible-role-pgcron
 
+Ansible role for dockerized PostgreSQL cron service
+
 ### To register cron jobs you need to define pgcron.jobs table
 
 #### For example:
