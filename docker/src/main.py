@@ -5,6 +5,7 @@ import psycopg2
 import logging
 import sys
 import os
+import time
 
 logger = logging.getLogger("main")
 
