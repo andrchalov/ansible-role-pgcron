@@ -1,7 +1,7 @@
 --
 -- pgver / Simple PostgreSQL schema versioning tool
 --
--- Version: 1.0.0
+-- Version: 1.0.1
 -- Author: Andrey Chalov.
 --
 
@@ -21,7 +21,7 @@ CREATE TEMP TABLE __pgver_folder_md5sum__ (value text) ON COMMIT DROP;
 \copy __pgver_folder_md5sum__ from program 'find . \( ! -regex ''.*/\..*'' \) -type f -exec md5sum {} \; | sort -k 2 | md5sum | cut -c 1-32'
 SELECT value AS __pgver_folder_md5sum__ FROM __pgver_folder_md5sum__ \gset
 
-SELECT split_part(schema_descr, '|', 1) AS __pgver_version_md5__,
+SELECT COALESCE(split_part(schema_descr, '|', 1), '') AS __pgver_version_md5__,
        COALESCE(NULLIF(split_part(schema_descr, '|', 2), ''), '0') AS __pgver_version_num__
   FROM (
     SELECT pg_catalog.obj_description(oid, 'pg_namespace') AS schema_descr

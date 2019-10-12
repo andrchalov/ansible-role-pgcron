@@ -3,16 +3,12 @@
 
 import psycopg2
 import logging
-from utils.config import get_config
-
-CONFIG_TEMPLATE = (
-  ("LOGLEVEL", "INFO", False)
-)
+import sys
+import os
 
 logger = logging.getLogger("main")
 
-config = get_config(CONFIG_TEMPLATE)
-logging.basicConfig(stream=sys.stdout, level=config["LOGLEVEL"])
+logging.basicConfig(stream=sys.stdout, level=os.getenv('LOGLEVEL', 'INFO'))
 
 conn = psycopg2.connect("")
 conn.autocommit = True

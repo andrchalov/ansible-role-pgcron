@@ -11,5 +11,5 @@ CREATE TABLE _pgcron.job (
   func_name text NOT NULL,
   run_interval interval NOT NULL
 );
-ALTER TABLE _pgcron.job AUTHORIZATION :"schema_owner";
+ALTER TABLE _pgcron.job OWNER TO :"schema_owner";
 -------------------------------------------------------------------------------
