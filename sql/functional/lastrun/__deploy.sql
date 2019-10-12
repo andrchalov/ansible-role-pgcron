@@ -16,9 +16,9 @@ CREATE TABLE pgcron.lastrun
   CONSTRAINT lastrun_pkey PRIMARY KEY (schema_name, func_name)
 );
 
-ALTER TABLE pgcron.lastrun OWNER to pgcron;
+ALTER TABLE pgcron.lastrun OWNER to :"schema_owner";
 
-\ir lastrun/before_action.sql
+\ir before_action.sql
 
 -------------------------------------------------------------------------------
 -- TRIGGERS -------------------------------------------------------------------

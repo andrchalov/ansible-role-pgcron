@@ -6,6 +6,7 @@
 CREATE OR REPLACE FUNCTION pgcron.run()
 	RETURNS boolean
   LANGUAGE plpgsql
+	SECURITY DEFINER
 AS $function$
 --
 -- Выполнение следующего запланированого задания (если таковое имеется),
@@ -22,7 +23,7 @@ DECLARE
   v_tmp int;
 BEGIN
   SELECT j.* INTO v_cronjob
-    FROM pgcron.jobs j
+    FROM _pgcron.job j
     LEFT JOIN pgcron.lastrun r ON r.schema_name = j.schema_name AND r.func_name = j.func_name
     WHERE now() - r.runmo > j.run_interval
       OR r ISNULL

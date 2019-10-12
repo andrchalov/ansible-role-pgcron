@@ -1,40 +1,16 @@
 ---
-- name: Create pgcron folder
-  file:
-    dest: "{{pgcron_dir}}"
-    state: directory
-
-- name: Copy pgcron app
-  copy:
-    src: "{{role_path}}/files/pg_cron.py"
-    dest: "{{pgcron_dir}}"
-  notify: plan to restart pgcron
-
-- name: Copy pgcron sql files
-  synchronize:
-    src: "{{role_path}}/files/sql/"
-    dest: "{{pgcron_dir}}/sql"
-    delete: yes
-    use_ssh_args: yes
-  notify: plan to restart pgcron
-
-- meta: flush_handlers
-
 - name: (re)start pgcron container
   docker_container:
-    name: "{{pgcron_docker_name}}"
-    image: "{{pgcron_docker_image}}"
+    name: "{{ pgcron_docker_name }}"
+    image: "{{ pgcron_docker_image }}"
     network_mode: host
     env:
-      PGHOST: "{{pgcron_host}}"
-      PGDATABASE: "{{pgcron_db}}"
-      PGUSER: "{{pgcron_user}}"
-      PGPASSWORD: "{{pgcron_password}}"
-      LOGLEVEL: "{{pgcron_loglevel}}"
-    volumes:
-      - "{{pgcron_dir}}:/mnt:ro"
-    command: "/usr/bin/python3 /mnt/pg_cron.py"
+      PGHOST: "{{ pgcron_host }}"
+      PGDATABASE: "{{ pgcron_db }}"
+      PGUSER: "{{ pgcron_user }}"
+      PGPASSWORD: "{{ pgcron_password }}"
+      LOGLEVEL: "{{ pgcron_loglevel }}"
     restart_policy: always
-    restart: "{{__pgcron_restart | default(false)}}"
-    pull: "{{__pgcron_restart | default(false)}}"
+    restart: "{{ __pgcron_restart | default(false) }}"
+    pull: true
     state: "started"
