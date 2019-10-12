@@ -3,4 +3,4 @@ pgcron_docker_name: pgcron
 pgcron_docker_image: andrchalov/pgcron:latest
 pgcron_user: pgcron
 pgcron_password: ''
-pgcron_loglevel: error
+pgcron_loglevel: ERROR
