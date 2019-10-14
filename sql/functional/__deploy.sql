@@ -8,6 +8,7 @@ GRANT USAGE ON SCHEMA pgcron TO pgcron;
 SET SESSION AUTHORIZATION :"schema_owner";
 
 \ir run.sql
+\ir notify.sql
 \ir lastrun/__deploy.sql
 \ir transaction_runtime.sql
 

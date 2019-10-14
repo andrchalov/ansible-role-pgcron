@@ -2,7 +2,7 @@
 -- pgcron.lastrun
 --
 
-CREATE TABLE pgcron.lastrun
+CREATE UNLOGGED TABLE pgcron.lastrun
 (
   schema_name text NOT NULL,
   func_name text NOT NULL,
@@ -12,6 +12,8 @@ CREATE TABLE pgcron.lastrun
   runtimemax integer NOT NULL,
   runtimeavg integer NOT NULL,
   runinterval interval,
+  last_affected_rows int,
+  last_min_repeats int NOT NULL,
   error json,
   CONSTRAINT lastrun_pkey PRIMARY KEY (schema_name, func_name)
 );
